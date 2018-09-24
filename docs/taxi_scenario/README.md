@@ -69,7 +69,7 @@ It's important to note that this query is run against the nickname, will perform
 The easiest (and fastest for large datasets) is to use a "LOAD FROM CURSOR" operation selecting from the nickname and replacing the data in the local table:
 
 ```
-call sysproc.admin_cmd('LOAD FROM (select *, date(timestamp_format(PICKUP_DATETIME, ''YYYY-MM-DD HH24:MI:SS'')) as ride_date FROM BLUADMIN.NYCTAXI_DATA2) OF CURSOR REPLACE INTO BLUADMIN.NYCTAXI_DATA')
+call sysproc.admin_cmd('LOAD FROM (select *, date(timestamp_format(PICKUP_DATETIME, ''YYYY-MM-DD HH24:MI:SS'')) as ride_date FROM BLUADMIN.NYCTAXI_DATA) OF CURSOR REPLACE INTO BLUADMIN.NYCTAXI_DATA2')
 ```
 
 That SYSPROC.ADMIN_CMD stored procedure allows you to run many historically command-line activities as though they were SQL. In this case I'm using the LOAD utility and am able to use shorthand to define the source file as an SQL cursor.
@@ -78,7 +78,7 @@ While the load operation is running it can be monitored as an Application on the
 
 ![](8_monitor_load.png)
 
-Now you have a copy of the data in a local table called BLUADMIN.NYCTAXI_DATA.
+Now you have a copy of the data in a local table called BLUADMIN.NYCTAXI_DATA2.
 
 ## Loading From a File
 
