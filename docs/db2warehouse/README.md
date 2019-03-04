@@ -117,14 +117,12 @@ db2-ibm-db2warehouse-prod-3772094781-3z4m3   1/1       Running   0          35m
 $ kubectl describe pod db2-ibm-db2warehouse-prod-3772094781-3z4m3 --namespace db2-warehouse
 ```
 
-As of now 12/2017 the logs in ICP do not have information on DB2 state, so to access the db2 logs we need to connect to the pod:
+Db2 Warehouse's deployment logs are available through the Docker logging facility:
 ```
-# kubectl exec -it <pod name> bash
-$ kubectl exec -it db2-ibm-db2warehouse-prod-3772094781-3z4m3 bash --namespace db2-warehouse
-$ tail -f /var/log/dashdb_local.log
+$ kubectl logs --follow db2-ibm-db2warehouse-prod-3772094781-3z4m3 bash --namespace db2-warehouse
 ```
 
-If you need to assess id DB2 is running use: `ps -ef | grep db2sysc` inside the pod.
+If you need to access the id DB2 is running use: `ps -ef | grep db2sysc` inside the pod. This should return `db2inst` for the owner.
 
 
 ## Loading customer sample data
